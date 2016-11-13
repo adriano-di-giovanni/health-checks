@@ -1,0 +1,13 @@
+#!/bin/sh
+
+free --bytes | awk \
+  -v failthold=0.9 \
+  -v warnthold=0.7 \
+  '/^Mem:/{
+    used=$3
+    total=$2
+    ratio=used/total
+    if (ratio >= failthold) exit 2
+    if (ratio >= warnthold) exit 1
+    exit 0
+  }'

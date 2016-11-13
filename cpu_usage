@@ -1,0 +1,17 @@
+#!/bin/sh
+
+read loadavg1 loadavg5 loadavg15 rest < /proc/loadavg
+numcpus=$(grep -c '^processor' /proc/cpuinfo)
+
+
+awk \
+  -v failthold=1 \
+  -v warnthold=0.7 \
+  -v loadavg=${loadavg5} \
+  -v numcpus=${numcpus} \
+  'BEGIN {
+    ratio=loadavg/numcpus
+    if (ratio >= failthold) exit 2
+    if (ratio >= warnthold) exit 1
+    exit 0
+  }'

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+df -x devtmpfs -x tmpfs -x vboxsf | awk \
+  -v failthold=0.9 \
+  -v warnthold=0.7 \
+  'NR > 1 {
+    used=$3
+    total=$2
+    ratio=used/total
+    if (ratio > failthold) exit 2
+    if (ratio > warnthold) exit 1
+  }'
