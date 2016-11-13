@@ -14,7 +14,7 @@ A collection of health checking scripts to be run by Consul agents.
   <tbody>
     <tr>
       <td>0</td>
-      <td>pass</td>
+      <td>passing</td>
     </tr>
     <tr>
       <td>1</td>
