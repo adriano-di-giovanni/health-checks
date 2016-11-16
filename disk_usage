@@ -4,9 +4,19 @@ df -x devtmpfs -x tmpfs -x vboxsf | awk \
   -v failthold=0.9 \
   -v warnthold=0.7 \
   'NR > 1 {
+    filesystem=$1
     used=$3
     total=$2
     ratio=used/total
-    if (ratio > failthold) exit 2
-    if (ratio > warnthold) exit 1
+    if (ratio > failthold)
+    {
+      print "Disk usage ratio for " filesystem " is above " failthold
+      exit 2
+    }
+    if (ratio > warnthold)
+    {
+      print "Disk usage ratio for " filesystem " is above " warnthold
+      exit 1
+    }
+    exit 0
   }'

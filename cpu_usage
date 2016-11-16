@@ -7,11 +7,19 @@ numcpus=$(grep -c '^processor' /proc/cpuinfo)
 awk \
   -v failthold=1 \
   -v warnthold=0.7 \
-  -v loadavg=${loadavg5} \
+  -v loadavg=${loadavg1} \
   -v numcpus=${numcpus} \
   'BEGIN {
     ratio=loadavg/numcpus
-    if (ratio >= failthold) exit 2
-    if (ratio >= warnthold) exit 1
+    if (ratio > failthold)
+    {
+      print "Average load over the last minute is above " ratio
+      exit 2
+    }
+    if (ratio > warnthold)
+    {
+      print "Average load over the last minute is above " ratio
+      exit 1
+    }
     exit 0
   }'
