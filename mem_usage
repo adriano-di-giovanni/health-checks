@@ -9,12 +9,12 @@ free --bytes | awk \
     ratio=used/total
     if (ratio > failthold)
     {
-      print "Memory usage ratio is above " failthold
+      print "Memory usage ratio is " ratio
       exit 2
     }
     if (ratio > warnthold)
     {
-      print "Memory usage ratio is above " warnthold
+      print "Memory usage ratio is " ratio
       exit 1
     }
     exit 0
