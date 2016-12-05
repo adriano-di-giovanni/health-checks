@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if ss -lnptu | grep redis-server
+then
+  exit 0
+else
+  echo "Redis server is down"
+  exit 2
+fi
