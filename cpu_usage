@@ -7,7 +7,7 @@ numcpus=$(grep -c '^processor' /proc/cpuinfo)
 awk \
   -v failthold=1 \
   -v warnthold=0.7 \
-  -v loadavg=${loadavg1} \
+  -v loadavg=${loadavg5} \
   -v numcpus=${numcpus} \
   'BEGIN {
     ratio=loadavg/numcpus
