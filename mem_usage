@@ -1,8 +1,8 @@
 #!/bin/sh
 
 free --bytes | awk \
-  -v failthold=0.90 \
-  -v warnthold=0.75 \
+  -v failthold=0.9 \
+  -v warnthold=0.8 \
   '/^Mem:/{
     used=$3
     total=$2
