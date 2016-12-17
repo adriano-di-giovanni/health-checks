@@ -2,11 +2,13 @@
 
 free --bytes | awk \
   -v failthold=0.90 \
-  -v warnthold=0.85 \
+  -v warnthold=0.70 \
   '/^Mem:/{
+    cached=$7
+    buffers=$6
     used=$3
     total=$2
-    ratio=used/total
+    ratio=(used-(buffers+cached))/total
     if (ratio > failthold)
     {
       print "Memory usage ratio is " ratio
