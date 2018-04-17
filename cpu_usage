@@ -13,12 +13,12 @@ awk \
     ratio=loadavg/numcpus
     if (ratio > failthold)
     {
-      print "Average load over the last minute is " ratio
+      print "Average load is " ratio
       exit 2
     }
     if (ratio > warnthold)
     {
-      print "Average load over the last minute is " ratio
+      print "Average load is " ratio
       exit 1
     }
     exit 0
