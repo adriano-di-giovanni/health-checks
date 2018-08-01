@@ -5,19 +5,19 @@ port=$2
 password=$3
 
 redis-cli -h ${host} -p ${port} -a ${password} info memory | \
-  grep --regexp=used_memory_peak: --regexp=maxmemory: | \
+  grep --regexp=used_memory_rss: --regexp=maxmemory: | \
   awk \
     -F':' \
     -v failthold=0.9 \
     -v warnthold=0.7 \
    'BEGIN {
-      used_memory_peak = -1
+      used_memory_rss = -1
       maxmemory = -1
     }
 
     {
-      if ($1 == "used_memory_peak") {
-        used_memory_peak = $2
+      if ($1 == "used_memory_rss") {
+        used_memory_rss = $2
       } else if ($1 == "maxmemory") {
         maxmemory = $2
       }
@@ -28,7 +28,7 @@ redis-cli -h ${host} -p ${port} -a ${password} info memory | \
         exit 0
       }
 
-      ratio = used_memory_peak / maxmemory
+      ratio = used_memory_rss / maxmemory
 
       if (ratio > failthold) {
         print "Redis memory usage ratio is " ratio
