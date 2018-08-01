@@ -8,7 +8,9 @@ free --bytes | awk \
     buffers=$6
     used=$3
     total=$2
-    ratio=(used-(buffers+cached))/total
+    # WARNING: `free --bytes` output depends on the version of Ubuntu you run the command on
+    # ratio=(used-(buffers+cached))/total
+    ratio=used/total
     if (ratio > failthold)
     {
       print "Memory usage ratio is " ratio
