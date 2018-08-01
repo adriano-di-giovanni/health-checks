@@ -31,12 +31,12 @@ redis-cli -h ${host} -p ${port} -a ${password} info memory | \
       ratio = used_memory_rss / maxmemory
 
       if (ratio > failthold) {
-        print "Redis memory usage ratio is " ratio
+        print "Redis maxmemory usage ratio is " ratio
         exit 2
       }
 
       if (ratio > warnthold) {
-        print "Redis memory usage ratio is " ratio
+        print "Redis maxmemory usage ratio is " ratio
         exit 1
       }
 
